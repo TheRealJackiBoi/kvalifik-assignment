@@ -47,3 +47,11 @@
   background-color: #a0aec0;
   cursor: not-allowed;
 }
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: space-between;
+}

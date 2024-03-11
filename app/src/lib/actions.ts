@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma'
 import { User } from '@prisma/client'
 import { signIn } from '@/auth'
 import { Credentials } from '@/lib/definitions'
+import { redirect } from 'next/navigation'
 
 export async function authenticate(
   prevState: string | undefined,
@@ -41,7 +42,7 @@ export async function getAllUsers() {
   }
 }
 
-export async function createUser(formData: FormData) {
+export async function createUser(formData: FormData): Promise<boolean> {
   try {
     const userExists = await prisma.user.findFirst({
       where: {
@@ -50,17 +51,23 @@ export async function createUser(formData: FormData) {
     })
 
     if (userExists) {
-      throw new Error('User already exists')
+      return false
+    } else {
+      await prisma.user.create({
+        data: {
+          name: formData.get('name') as string,
+          email: formData.get('email') as string,
+          password: formData.get('password') as string,
+        },
+      })
+      return true
     }
-    await prisma.user.create({
-      data: {
-        name: formData.get('name') as string,
-        email: formData.get('email') as string,
-        password: formData.get('password') as string,
-      },
-    })
   } catch (error) {
     console.error('Failed to create user:', error)
     throw new Error('Failed to create user.')
   }
+}
+
+export async function navigate(path: string) {
+  redirect(path)
 }

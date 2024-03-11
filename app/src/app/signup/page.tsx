@@ -1,4 +1,3 @@
-import prisma from '@/lib/prisma'
 import SubmitButton from './submitButton'
 import { redirect } from 'next/navigation'
 import '../../styles/signup.css'
@@ -7,8 +6,13 @@ import { createUser } from '@/lib/actions'
 export default function SignupPage() {
   const addUser = async (formData: FormData) => {
     'use server'
-    await createUser(formData)
-    redirect('/')
+    const isAdded = await createUser(formData)
+
+    if (isAdded) {
+      redirect('/')
+    } else {
+      redirect('/signup/error')
+    }
   }
 
   return (
