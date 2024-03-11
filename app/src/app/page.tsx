@@ -1,6 +1,6 @@
 import FetchAPI from '@/components/common/FetchAPI'
 import Todos from '../components/todo-list/Todos'
-import { Box, Flex, Divider, Text, Button } from '@chakra-ui/react'
+import { Box, Flex, Divider, Text } from '@chakra-ui/react'
 import { Metadata, NextPage } from 'next'
 import Link from 'next/link'
 import { FC } from 'react'
