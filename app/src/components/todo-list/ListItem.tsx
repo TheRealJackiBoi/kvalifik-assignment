@@ -14,8 +14,8 @@ type Props = {
 
 const ListItem: FC<Props> = ({ todo }) => {
   const icon = todo.completed ? MdCheckCircle : MdPanoramaFishEye
-  const router = useRouter();
-  
+  const router = useRouter()
+
   const handleToggle = async () => {
     const res = await toggleCompleted(todo.id)
     if (res) {
@@ -27,7 +27,9 @@ const ListItem: FC<Props> = ({ todo }) => {
     <ChakraListItem onClick={handleToggle}>
       <ListIcon as={icon} color='green.500' />
       <span>{todo.text}</span>
-      <Link href={`/todo/${todo.id}`} className='list-view'>View</Link>
+      <Link href={`/todo/${todo.id}`} className='list-view'>
+        View
+      </Link>
     </ChakraListItem>
   )
 }

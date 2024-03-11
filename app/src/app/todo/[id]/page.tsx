@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react'
+import { Divider, Heading, Text } from '@chakra-ui/react'
 import { fetchTodo } from '../../../components/todo-list/lib/data'
 import { Metadata } from 'next'
 import { FC } from 'react'
@@ -24,10 +24,25 @@ const TodoPage: FC<Params> = async ({ params }) => {
   return (
     <>
       <BackLink />
-      <Text fontSize='2em' mb={4}>
+      <Heading fontSize='4em' mb={4}>
         {todo.text}
+      </Heading>
+      <Text>
+        <b>Created date: </b>
+        {todo.createdAt.toDateString()}
       </Text>
-      <Text mb={10}>{todo.description}</Text>
+      <Text>
+        <b>Type: </b>
+        {todo.type}
+      </Text>
+      <Text>
+        <b>Completed: </b>
+        {todo.completed ? 'Yes' : 'No'}
+      </Text>
+      <Divider bg='#141414' h={1} />
+      <Text mb={10} mt={8}>
+        {todo.description}
+      </Text>
     </>
   )
 }
