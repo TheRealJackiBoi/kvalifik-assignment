@@ -2,7 +2,13 @@
 
 import { FC } from 'react'
 import { MdCheckCircle, MdPanoramaFishEye } from 'react-icons/md'
-import { ListItem as ChakraListItem, ListIcon } from '@chakra-ui/react'
+import {
+  Box,
+  ListItem as ChakraListItem,
+  Flex,
+  ListIcon,
+  Spacer,
+} from '@chakra-ui/react'
 import { Todo } from '@prisma/client'
 import { toggleCompleted } from '@/lib/actions'
 import { useRouter } from 'next/navigation'
@@ -25,11 +31,18 @@ const ListItem: FC<Props> = ({ todo }) => {
 
   return (
     <ChakraListItem onClick={handleToggle}>
-      <ListIcon as={icon} color='green.500' />
-      <span>{todo.text}</span>
-      <Link href={`/todo/${todo.id}`} className='list-view'>
-        View
-      </Link>
+      <Flex>
+        <Box as='span' mr={2}>
+          <ListIcon as={icon} color='green.500' />
+          <span>{todo.text}</span>
+        </Box>
+        <Spacer />
+        <Box>
+          <Link href={`/todo/${todo.id}`} className='list-view'>
+            View
+          </Link>
+        </Box>
+      </Flex>
     </ChakraListItem>
   )
 }
