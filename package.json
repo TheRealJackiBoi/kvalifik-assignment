@@ -18,5 +18,9 @@
   },
   "pre-push": [
     "check:code"
-  ]
+  ],
+  "packageManager": "yarn@4.1.1",
+  "dependencies": {
+    "react-dom": "^18.2.0"
+  }
 }
