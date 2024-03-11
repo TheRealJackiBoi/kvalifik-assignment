@@ -24,6 +24,12 @@ const HomePage: FC<NextPage> = () => {
           Login
         </Link>
       </Flex>
+      <Flex alignItems='center'>
+        <MdLogin style={{ marginRight: '5px' }} />
+        <Link href='/signup' passHref>
+          Signup
+        </Link>
+      </Flex>
       <Flex alignItems='center' mb={10}>
         <MdLockPerson style={{ marginRight: '5px' }} />
         <Link href='/protected-page' passHref>
