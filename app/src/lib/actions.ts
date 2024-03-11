@@ -1,7 +1,7 @@
 'use server'
 
 import prisma from '@/lib/prisma'
-import { User } from '@prisma/client'
+import { Todo, User } from '@prisma/client'
 import { signIn } from '@/auth'
 import { Credentials } from '@/lib/definitions'
 
@@ -38,5 +38,30 @@ export async function getAllUsers() {
   } catch (error) {
     console.error('Failed to fetch users:', error)
     throw new Error('Failed to fetch users.')
+  }
+}
+
+export async function toggleCompleted(id: number): Promise<Todo | null> {
+  try {
+    const currentRecord = await prisma.todo.findUnique({
+      where: { id: id },
+    })
+
+    if (!currentRecord) {
+      throw new Error(`No todo with id: ${id}`)
+    }
+    return await prisma.todo.update({
+      where: {
+        id,
+      },
+      data: {
+        completed: {
+          set: !currentRecord.completed,
+        },
+      },
+    })
+  } catch (error) {
+    console.log(`Failed to toggle todo: ${id}`, error)
+    throw new Error(`Failed to toggle todo: ${id}`)
   }
 }
