@@ -6,6 +6,7 @@ import { ListItem as ChakraListItem, ListIcon } from '@chakra-ui/react'
 import { Todo } from '@prisma/client'
 import { toggleCompleted } from '@/lib/actions'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 type Props = {
   todo: Todo
@@ -26,6 +27,7 @@ const ListItem: FC<Props> = ({ todo }) => {
     <ChakraListItem onClick={handleToggle}>
       <ListIcon as={icon} color='green.500' />
       <span>{todo.text}</span>
+      <Link href={`/todo/${todo.id}`} className='list-view'>View</Link>
     </ChakraListItem>
   )
 }
