@@ -39,7 +39,7 @@ const TodoPage: FC<Params> = async ({ params }) => {
         <b>Completed: </b>
         {todo.completed ? 'Yes' : 'No'}
       </Text>
-      <Divider bg='#141414' h={1} />
+      <Divider bg='#141414' h={0.5} />
       <Text mb={10} mt={8}>
         {todo.description}
       </Text>
