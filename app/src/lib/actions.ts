@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma'
 import { Todo, User } from '@prisma/client'
 import { signIn } from '@/auth'
 import { Credentials } from '@/lib/definitions'
+import { redirect } from 'next/navigation'
 
 export async function authenticate(
   prevState: string | undefined,
@@ -39,6 +40,37 @@ export async function getAllUsers() {
     console.error('Failed to fetch users:', error)
     throw new Error('Failed to fetch users.')
   }
+}
+
+
+export async function createUser(formData: FormData): Promise<boolean> {
+  try {
+    const userExists = await prisma.user.findFirst({
+      where: {
+        email: formData.get('email') as string,
+      },
+    })
+
+    if (userExists) {
+      return false
+    } else {
+      await prisma.user.create({
+        data: {
+          name: formData.get('name') as string,
+          email: formData.get('email') as string,
+          password: formData.get('password') as string,
+        },
+      })
+      return true
+    }
+  } catch (error) {
+    console.error('Failed to create user:', error)
+    throw new Error('Failed to create user.')
+  }
+}
+
+export async function navigate(path: string) {
+  redirect(path)
 }
 
 export async function toggleCompleted(id: number): Promise<Todo | null> {
